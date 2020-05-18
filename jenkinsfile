@@ -3,11 +3,22 @@
 pipeline{
   agent any
   stages{
+    stage("build"){
+      steps{
+        echo "building ..."
+        sleep 5
+      }
+    }
     stage("test"){
       steps{
-        echo "Hello World!"
-        echo "This is my frist pipeline demo"
-        echo $env.BRANCH_NAME
+        echo "Testing..."
+        echo "${env.BRANCH_NAME}"
+      }
+    }
+    stage("deploy"){
+      steps{
+        echo "deploy..."
+        echo "deploy branch is ${env.BRANCH_NAME}"
       }
     }
   }
