@@ -6,13 +6,14 @@ pipeline{
     stage("build"){
       steps{
         echo "building ..."
+        echo "Running ${env.BUILD_ID} on ${env.JENKISN_URL}"
         sleep 5
       }
     }
     stage("test"){
       steps{
         echo "Testing..."
-        echo "${env.BRANCH_NAME}"
+        echo "Running test job on ${env.NODE_NAME}"
       }
     }
     stage("deploy"){
