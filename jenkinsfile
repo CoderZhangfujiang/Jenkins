@@ -2,31 +2,12 @@
 
 pipeline{
   agent any
-  triggers {
-    GenericTrigger(
-     genericVariables: [
-      [key: 'ref', value: '$.ref']
-     ],
-
-     causeString: 'Triggered on $ref',
-
-     token: 'abc123',
-
-     printContributedVariables: true,
-     printPostContent: true,
-
-     silentResponse: false,
-
-     regexpFilterText: '$ref',
-     regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
-    )
-  }
   stages{
     stage("test"){
       steps{
         echo "Hello World!"
         echo "This is my frist pipeline demo"
-        echo $ref
+        echo BRANCH_NAME
       }
     }
   }
