@@ -2,19 +2,16 @@
 
 pipeline{
   agent any
-  
   parameters{   // 定义参数
     string(name: 'Greeting', defaultValue: 'Hello', description: 'How shoud I greet the world?')
   }
   stages{
     stage("build"){
-      steps{
-        env.PATH = "/usr/local/bin/docker:${env.PATH}"
-      }
       agent{
         docker { image 'maven:3-alpine' }
       }
       steps{
+        echo "PATH is ${env.PATH}"
         sh 'mvn --version'
         echo "building ..."
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"    // 使用环境变量
