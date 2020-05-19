@@ -13,6 +13,7 @@ pipeline{
       }
       */
       steps{
+        env.PATH = "/usr/local/bin/docker:${env.PATH}"
         echo "PATH is ${env.PATH}"
         // sh 'mvn --version'
         echo "building ..."
