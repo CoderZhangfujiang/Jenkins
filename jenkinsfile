@@ -13,10 +13,11 @@ pipeline{
       }
       */
       steps{
+        echo "${env.PATH}"
         script{
           def dockerPath = tool 'docker'
           env.PATH = "${dockerPath}:${env.PATH}"
-          sh "docker --version"
+          //sh "docker --version"
         }
         echo "PATH is ${env.PATH}"
         // sh 'mvn --version'
