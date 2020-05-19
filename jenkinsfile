@@ -11,6 +11,7 @@ pipeline{
         docker { image 'maven:3-alpine' }
       }
       steps{
+        sh 'mvn --version'
         echo "building ..."
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"    // 使用环境变量
         sleep 5
