@@ -2,23 +2,51 @@
 
 pipeline{
   agent any
-  parameters{
+  parameters{   // 定义参数
     string(name: 'Greeting', defaultValue: 'Hello', description: 'How shoud I greet the world?')
   }
   stages{
     stage("build"){
+      agent{
+        docker { image 'maven:3-alpine' }
+      }
       steps{
         echo "building ..."
-        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"    // 使用环境变量
         sleep 5
       }
     }
     stage("test"){
       steps{
         echo "Testing..."
-        echo "${params.Greeting} world !"
+        echo "${params.Greeting} world !"   // 使用前文中定义的参数
         echo "Running test job on ${env.NODE_NAME}"
       }
+      /*
+      并行任务的实现,在linux 和 windows 环境下并行测试
+      parallel linux{
+        node('linux'){
+          checkout scm
+          try{
+            unstash 'app'
+            sh 'make check'
+          }
+          finally{
+            junit '**/target/*.xml'
+          }
+        }
+      },
+      windows{
+        checkout scm
+          try{
+            unstash 'app'
+            bat 'make check'
+          }
+          finally{
+            junit '**/target/*.xml'
+          }
+      }
+      */
     }
     stage("deploy"){
       steps{
