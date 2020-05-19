@@ -2,6 +2,9 @@
 
 pipeline{
   agent any
+  parameters{
+    string{name: 'Greeting', defaultvalue: 'Hello', description: 'How shoud I greet the world?'}
+  }
   stages{
     stage("build"){
       steps{
@@ -13,6 +16,7 @@ pipeline{
     stage("test"){
       steps{
         echo "Testing..."
+        echo "${params.Greeting} world !"
         echo "Running test job on ${env.NODE_NAME}"
       }
     }
