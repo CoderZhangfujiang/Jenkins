@@ -7,10 +7,15 @@ pipeline{
   }
   stages{
     stage("build"){
+      /*
       agent{
         docker { image 'maven:3-alpine' }
       }
+      */
       steps{
+        script{
+          sh "docker --version"
+        }
         echo "PATH is ${env.PATH}"
         // sh 'mvn --version'
         echo "building ..."
